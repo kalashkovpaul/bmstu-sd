@@ -5,4 +5,8 @@
 
 ### **Верхнеуровневое разбиение на компоненты**
 
-### **UML диаграммы**
+### **UML Component Diagram**
+![components](img/components.png)
+
+### **UML Class Diargram**
+![uml](img/total-uml.png)
