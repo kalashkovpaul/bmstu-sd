@@ -25,14 +25,19 @@ export default class Editor extends BaseComponent implements IEditor {
         this.skillDelivery = skillDelivery;
         this.heroDelivery = heroDelivery;
 
-        this.bus.on(events.ownerUnlocked, () => {
-            this.isOwner = true;
+        let that = this;
+        this.bus.on(events.ownerUnlocked, function() {
+            that.isOwner = true;
         });
+    }
+
+    private unlockOwnership() {
+        this.isOwner = true;
     }
 
     saveSkill(skillData: saveSkillData) {
         const {skill} = skillData
-        if (this.isOwner) {
+        if (!this.isOwner) {
             this.bus.emit(events.skillSaveResolved, statuses.FORBIDDEN);
             return;
         }
@@ -61,7 +66,7 @@ export default class Editor extends BaseComponent implements IEditor {
             results.push(skill.image ? this.skillDelivery.setImage(
                 skill.name,
                 skill.image as File
-            ).status : {status: statuses.SUCCESS});
+            ).status : statuses.SUCCESS);
             if (results.every(status => status === statuses.SUCCESS)) {
                 this.bus.emit(events.skillSaveResolved, statuses.SUCCESS);
             } else {

@@ -11,7 +11,7 @@ export default class SkillValidator implements ISkillValidator {
             this.checkDateInterval(skill.startDate, skill.endDate) &&
             this.checkLink(skill.link) &&
             (!skill.image || typeof skill.image === "string" || this.checkImage(skill.image as File))) {
-                check = false;
+                check = true;
             }
         return check;
     }

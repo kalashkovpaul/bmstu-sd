@@ -4,7 +4,7 @@ import BaseBus from "./BaseBus";
 export default class EventBus extends BaseBus {
 
     constructor() {
-        super()
+        super();
     }
 
     on(event: event, callback: callback) {
