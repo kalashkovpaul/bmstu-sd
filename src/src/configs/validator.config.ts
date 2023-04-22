@@ -46,7 +46,7 @@ export const heroValues = {
     },
     phone: {
         min: 7,
-        max: 10
+        max: 20
     },
     photo: {
         min: 1,

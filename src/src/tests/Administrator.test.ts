@@ -62,24 +62,33 @@ jest.mock("@/modules/Bus/EventBus", () => {
     }
 });
 
+const flushPromises = () => new Promise(setImmediate);
+
 describe("Editor test", () => {
     afterEach(() => {
         jest.clearAllMocks();
       });
 
-    it("enable ownerShip with 1 event", () => {
+    it("enable ownerShip with 1 event", async () => {
         const testChain = "1234";
-        jest.spyOn(heroDelivery, "getActionChain").mockReturnValue({status: statuses.SUCCESS, actionChain: testChain});
+        jest.spyOn(heroDelivery, "getActionChain").mockReturnValue(new Promise(resolve => {
+            resolve({status: statuses.SUCCESS, actionChain: testChain});
+        }));
         const administrator = new Administrator(heroDelivery);
+        await flushPromises();
         administrator.onEvent({actionCode: testChain});
         administrator.checkAction();
         expect(eventBus.emit).toHaveBeenLastCalledWith(events.ownerUnlocked);
     });
 
-    it("enable ownerShip with 1 event", () => {
+    it("enable ownerShip with 1 event", async () => {
         const actionCodes = ["1", "2", "3", "4"];
-        jest.spyOn(heroDelivery, "getActionChain").mockReturnValue({status: statuses.SUCCESS, actionChain: actionCodes.join("")});
+        jest.spyOn(heroDelivery, "getActionChain").mockReturnValue(new Promise(resolve => {
+            resolve({status: statuses.SUCCESS, actionChain: actionCodes.join("")});
+        }));
+
         const administrator = new Administrator(heroDelivery);
+        await flushPromises();
         actionCodes.forEach(code => {
             administrator.onEvent({actionCode: code});
         })
@@ -87,11 +96,14 @@ describe("Editor test", () => {
         expect(eventBus.emit).toHaveBeenLastCalledWith(events.ownerUnlocked);
     });
 
-    it("ownerShip not enabled", () => {
+    it("ownerShip not enabled", async () => {
         const actionCodes = ["1", "2", "3", "4"];
-        jest.spyOn(heroDelivery, "getActionChain").mockReturnValue({status: statuses.SUCCESS, actionChain: actionCodes.join("")});
+        jest.spyOn(heroDelivery, "getActionChain").mockReturnValue(new Promise(resolve => {
+            resolve({status: statuses.SUCCESS, actionChain: actionCodes.join("")});
+        }));
+        await flushPromises();
         const administrator = new Administrator(heroDelivery);
         administrator.checkAction();
-        expect(eventBus.emit).not.toHaveBeenCalled();
+        expect(eventBus.emit).toHaveBeenCalledTimes(1);
     });
 });

@@ -114,3 +114,7 @@ export type setHeroResumeData = {
 export type eventData = {
     actionCode: string;
 }
+
+export type rightsData = {
+    isAdmin: boolean;
+}

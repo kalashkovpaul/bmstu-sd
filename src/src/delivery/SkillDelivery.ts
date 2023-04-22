@@ -1,6 +1,6 @@
-import { statuses } from "@/consts";
-import ISkillRepository from "@/repository/SkillRepository/ISkillRepository";
-import { getSkillData, setSkillCompetenceData, setSkillDescriptionData, setSkillEndDateData, setSkillImageData, setSkillLinkData, setSkillNameData, setSkillStartDateData } from "@/types";
+import { statuses } from "../consts";
+import ISkillRepository from "../repository/SkillRepository/ISkillRepository";
+import { getSkillData, setSkillCompetenceData, setSkillDescriptionData, setSkillEndDateData, setSkillImageData, setSkillLinkData, setSkillNameData, setSkillStartDateData } from "../types";
 
 export default class SkillDelivery {
     private skillRepository: ISkillRepository;

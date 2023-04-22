@@ -1,5 +1,5 @@
-import { heroValues } from "@/configs/validator.config";
-import { hero } from "@/types";
+import { heroValues } from "../../configs/validator.config";
+import { hero } from "../../types";
 import IHeroValidator from "./IHeroValidator";
 
 export default class HeroValidator implements IHeroValidator {

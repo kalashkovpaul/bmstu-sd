@@ -6,4 +6,6 @@ export default interface IAdministrator {
     checkAction(): void;
 
     enableOwnership(): void;
+
+    getHero(): void;
 }

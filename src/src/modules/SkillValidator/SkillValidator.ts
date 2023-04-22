@@ -1,5 +1,5 @@
-import { skillValues } from "@/configs/validator.config";
-import { skill } from "@/types";
+import { skillValues } from "../../configs/validator.config";
+import { skill } from "../../types";
 import ISkillValidator from "./ISkillValidator";
 
 export default class SkillValidator implements ISkillValidator {

@@ -1,8 +1,8 @@
-import { events } from "@/configs/events.config";
-import { statuses } from "@/consts";
-import HeroDelivery from "@/delivery/HeroDelivery";
-import SkillDelivery from "@/delivery/SkillDelivery";
-import { hero, saveSkillData, } from "@/types";
+import { events } from "../../configs/events.config";
+import { statuses } from "../../consts";
+import HeroDelivery from "../../delivery/HeroDelivery";
+import SkillDelivery from "../../delivery/SkillDelivery";
+import { hero, saveSkillData, } from "../../types";
 import BaseComponent from "../BaseComponent";
 import HeroValidator from "../HeroValidator/HeroValidator";
 import IHeroValidator from "../HeroValidator/IHeroValidator";
@@ -113,6 +113,7 @@ export default class Editor extends BaseComponent implements IEditor {
 
     saveHeroData(hero: hero) {
         if (!this.isOwner) {
+            console.log("TRULY SAVING)");
             this.bus.emit(events.heroSaveResolved, statuses.FORBIDDEN);
             return;
         }

@@ -1,5 +1,5 @@
-import { masterChain, statuses } from "@/consts";
-import IHeroRepository from "@/repository/HeroRepository/IHeroRepository";
+import { masterChain, statuses } from "../consts";
+import IHeroRepository from "../repository/HeroRepository/IHeroRepository";
 import { getActionChainData, getHeroData, setHeroLastnameData, setHeroNameData, setHeroPhoneData, setHeroPhotoData, setHeroResumeData, setHeroSurnameData } from "@/types";
 
 export default class HeroDelivery {
@@ -9,40 +9,36 @@ export default class HeroDelivery {
         this.heroRepository = heroRepository
     }
 
-    getHero(): getHeroData {
-        const response = this.heroRepository.getHero();
-        let result = {
-            status: statuses.SERVER_ERROR,
-            hero: {
-                name: "",
-                surname: "",
-                lastname: "",
-                birthdate: new Date(),
-                phone: "",
-            }
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async getHero(): Promise<getHeroData> {
+        try {
+            const response = await this.heroRepository.getHero();
+            return response;
+        } catch(e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+                hero: {
+                    name: "",
+                    surname: "",
+                    lastname: "",
+                    birthdate: new Date(),
+                    phone: "",
+                }
+            }
+        };
     }
 
-    getActionChain(): getActionChainData {
-        const response = this.heroRepository.getActionChain();
-        let result = {
-            status: statuses.SERVER_ERROR,
-            actionChain: masterChain,
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async getActionChain(): Promise<getActionChainData> {
+        try {
+            const response = await this.heroRepository.getActionChain();
+            return response;
+        } catch(e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+                actionChain: masterChain,
+            }
+        };
     }
 
     setName(name: string): setHeroNameData {
@@ -144,5 +140,4 @@ export default class HeroDelivery {
         });
         return result;
     }
-
 }

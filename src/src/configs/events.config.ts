@@ -4,5 +4,11 @@ export const events = {
     skillDeleteResolved: "skillDeleteResolved",
     heroSaveResolved: "heroSaveResolved",
 
-    ownerUnlocked: "ownerUnlocked"
+    ownerUnlocked: "ownerUnlocked",
+    getUser: "getUser",
+    gotUser: "gotUser",
+    onEvent: "onEvent",
+    checkRights: "checkRights",
+    noRights: "noRights",
+    saveHero: "saveHero",
 }

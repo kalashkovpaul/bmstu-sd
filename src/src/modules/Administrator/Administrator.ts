@@ -1,6 +1,6 @@
-import { events } from "@/configs/events.config";
-import HeroDelivery from "@/delivery/HeroDelivery";
-import { eventData } from "@/types";
+import { events } from "../../configs/events.config";
+import HeroDelivery from "../../delivery/HeroDelivery";
+import { eventData } from "../../types";
 import BaseComponent from "../BaseComponent";
 import IAdministrator from "./IAdministrator";
 
@@ -12,21 +12,32 @@ export default class Administrator extends BaseComponent implements IAdministrat
     constructor(heroDelivery: HeroDelivery) {
         super();
         this.heroDelivery = heroDelivery;
-        this.actionChain = this.heroDelivery.getActionChain().actionChain;
+        this.actionChain = "";
+        this.heroDelivery.getActionChain().then((data) => {
+            this.actionChain = data.actionChain;
+        });
         this.currentActionChain = "";
     }
 
-    onEvent(event: eventData) {
+    onEvent = (event: eventData) => {
         this.currentActionChain += event.actionCode;
     }
 
     checkAction() {
         if (this.currentActionChain === this.actionChain) {
             this.enableOwnership();
+        } else {
+            this.bus.emit(events.noRights);
         }
     }
 
     enableOwnership() {
         this.bus.emit(events.ownerUnlocked);
+    }
+
+    getHero() {
+        this.heroDelivery.getHero().then((data) => {
+            this.bus.emit(events.gotUser, data);
+        });
     }
 }
