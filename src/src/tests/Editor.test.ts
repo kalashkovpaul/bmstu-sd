@@ -87,24 +87,48 @@ describe("Editor test", () => {
 
         it("owner, all valid", () => {
             const editor = new Editor(skillDelivery, heroDelivery);
-            jest.spyOn(skillDelivery, "setDescription").mockReturnValue({status: statuses.SUCCESS});
-            jest.spyOn(skillDelivery, "setCompetence").mockReturnValue({status: statuses.SUCCESS});
-            jest.spyOn(skillDelivery, "setStartDate").mockReturnValue({status: statuses.SUCCESS});
-            jest.spyOn(skillDelivery, "setEndDate").mockReturnValue({status: statuses.SUCCESS});
-            jest.spyOn(skillDelivery, "setDescription").mockReturnValue({status: statuses.SUCCESS});
-            jest.spyOn(skillDelivery, "setDescription").mockReturnValue({status: statuses.SUCCESS});
+            jest.spyOn(skillDelivery, "setDescription").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SUCCESS})
+            }));
+            jest.spyOn(skillDelivery, "setCompetence").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SUCCESS})
+            }));
+            jest.spyOn(skillDelivery, "setStartDate").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SUCCESS})
+            }));
+            jest.spyOn(skillDelivery, "setEndDate").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SUCCESS})
+            }));
+            jest.spyOn(skillDelivery, "setDescription").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SUCCESS})
+            }));
+            jest.spyOn(skillDelivery, "setDescription").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SUCCESS})
+            }));
             (<any>editor).isOwner = true;
             editor.saveSkill(testSkill);
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillSaveResolved, statuses.SUCCESS);
         });
 
         it("owner, delivery error", () => {
-            jest.spyOn(skillDelivery, "setDescription").mockReturnValue({status: statuses.SERVER_ERROR});
-            jest.spyOn(skillDelivery, "setCompetence").mockReturnValue({status: statuses.SUCCESS});
-            jest.spyOn(skillDelivery, "setStartDate").mockReturnValue({status: statuses.SERVER_ERROR});
-            jest.spyOn(skillDelivery, "setEndDate").mockReturnValue({status: statuses.SUCCESS});
-            jest.spyOn(skillDelivery, "setDescription").mockReturnValue({status: statuses.SUCCESS});
-            jest.spyOn(skillDelivery, "setDescription").mockReturnValue({status: statuses.SUCCESS});
+            jest.spyOn(skillDelivery, "setDescription").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SERVER_ERROR})
+            }));
+            jest.spyOn(skillDelivery, "setCompetence").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SERVER_ERROR})
+            }));
+            jest.spyOn(skillDelivery, "setStartDate").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SERVER_ERROR})
+            }));
+            jest.spyOn(skillDelivery, "setEndDate").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SERVER_ERROR})
+            }));
+            jest.spyOn(skillDelivery, "setDescription").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SERVER_ERROR})
+            }));
+            jest.spyOn(skillDelivery, "setDescription").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SERVER_ERROR})
+            }));
             const editor = new Editor(skillDelivery, heroDelivery);
             (<any>editor).isOwner = true;
             editor.saveSkill(testSkill);
@@ -130,7 +154,9 @@ describe("Editor test", () => {
 
         it("owner, all valid", () => {
             const editor = new Editor(skillDelivery, heroDelivery);
-            jest.spyOn(skillDelivery, "createSkill").mockReturnValue({status: statuses.SUCCESS, skillName: ""});
+            jest.spyOn(skillDelivery, "createSkill").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SUCCESS, skillName: ""})
+            }));
             (<any>editor).isOwner = true;
             editor.createSkill("test");
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillCreateResolved, statuses.SUCCESS);
@@ -138,7 +164,9 @@ describe("Editor test", () => {
 
         it("owner, skillDelivery error", () => {
             const editor = new Editor(skillDelivery, heroDelivery);
-            jest.spyOn(skillDelivery, "createSkill").mockReturnValue({status: statuses.SERVER_ERROR, skillName: ""});
+            jest.spyOn(skillDelivery, "createSkill").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SERVER_ERROR, skillName: ""})
+            }));
             (<any>editor).isOwner = true;
             editor.createSkill("test");
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillCreateResolved, statuses.SERVER_ERROR);
@@ -163,7 +191,9 @@ describe("Editor test", () => {
 
         it("owner, all valid", () => {
             const editor = new Editor(skillDelivery, heroDelivery);
-            jest.spyOn(skillDelivery, "deleteSkill").mockReturnValue({status: statuses.SUCCESS});
+            jest.spyOn(skillDelivery, "deleteSkill").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SUCCESS})
+            }));
             (<any>editor).isOwner = true;
             editor.deleteSkill("test");
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillDeleteResolved, statuses.SUCCESS);
@@ -171,7 +201,9 @@ describe("Editor test", () => {
 
         it("owner, skillDelivery error", () => {
             const editor = new Editor(skillDelivery, heroDelivery);
-            jest.spyOn(skillDelivery, "deleteSkill").mockReturnValue({status: statuses.SERVER_ERROR});
+            jest.spyOn(skillDelivery, "deleteSkill").mockReturnValue(new Promise(resolve => {
+                resolve({status: statuses.SERVER_ERROR})
+            }));
             (<any>editor).isOwner = true;
             editor.deleteSkill("test");
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillDeleteResolved, statuses.SERVER_ERROR);

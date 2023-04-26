@@ -4,7 +4,7 @@ export const skillValues = {
         max: 40
     },
     description: {
-        min: 10,
+        min: 1,
         max: 100
     },
     competence: {

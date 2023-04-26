@@ -19,7 +19,6 @@ export default class EventBus extends BaseBus {
     }
 
     emit(event: string, ...data: any[]) {
-        console.log(event, this.listeners.get(event));
         if (!this.listeners.get(event)) {
             return;
         }

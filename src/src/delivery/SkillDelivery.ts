@@ -1,6 +1,6 @@
 import { statuses } from "../consts";
 import ISkillRepository from "../repository/SkillRepository/ISkillRepository";
-import { getSkillData, setSkillCompetenceData, setSkillDescriptionData, setSkillEndDateData, setSkillImageData, setSkillLinkData, setSkillNameData, setSkillStartDateData } from "../types";
+import { getSkillData, setSkillCompetenceData, setSkillDescriptionData, setSkillEndDateData, setSkillImageData, setSkillLinkData, setSkillNameData, setSkillStartDateData, skillNames } from "../types";
 
 export default class SkillDelivery {
     private skillRepository: ISkillRepository;
@@ -9,160 +9,154 @@ export default class SkillDelivery {
         this.skillRepository = skillRepository;
     }
 
-    getSkill(skillName: string): getSkillData {
-        const response = this.skillRepository.getSkill(skillName);
-        let result = {
-            status: statuses.NOT_FOUND,
-            skill: {
-                name: "",
-                description: "",
-                competence: 0,
-                startDate: new Date(),
-                endDate: new Date(),
-                link: ""
+    async getSkillNames(): Promise<skillNames> {
+        try {
+            const response = await this.skillRepository.getSkillNames();
+            return response;
+        } catch (e) {
+            console.log(e);
+            return {
+                names: []
             }
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 
-    createSkill(skillName: string) {
-        const response = this.skillRepository.createSkill(skillName);
-        let result = {
-            status: statuses.SERVER_ERROR,
-            skillName: ""
+    async getSkill(skillName: string): Promise<getSkillData> {
+        try {
+            const response = this.skillRepository.getSkill(skillName);
+            return response;
+        } catch (e) {
+            console.log(e);
+            return {
+                status: statuses.NOT_FOUND,
+                skill: {
+                    name: "",
+                    description: "",
+                    competence: 0,
+                    startDate: new Date(),
+                    endDate: new Date(),
+                    link: ""
+                }
+            }
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 
-    deleteSkill(skillName: string) {
-        const response = this.skillRepository.deleteSkill(skillName);
-        let result = {
-            status: statuses.SERVER_ERROR,
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async createSkill(skillName: string) {
+        try {
+            const response = await this.skillRepository.createSkill(skillName);
+            return response;
+        } catch (e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+                skillName: ""
+            }
+
+        }
     }
 
-    setSkillName(skillName: string, newSkillName: string): setSkillNameData {
-        const response = this.skillRepository.setSkillName(skillName, newSkillName);
-        let result = {
-            status: statuses.SERVER_ERROR,
-            skillName: ""
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async deleteSkill(skillName: string) {
+        try {
+            const response = await this.skillRepository.deleteSkill(skillName);
+            return response;
+        } catch (e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+            }
+        }
     }
 
-    setDescription(skillName: string, newDescription: string): setSkillDescriptionData {
-        const response = this.skillRepository.setSkillDescription(skillName,
-            newDescription);
-        let result = {
-            status: statuses.SERVER_ERROR,
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async setSkillName(skillName: string, newSkillName: string) {
+        try {
+            const response = await this.skillRepository.setSkillName(skillName, newSkillName);
+            return response;
+        } catch (e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+                skillName: ""
+            }
+        }
     }
 
-    setCompetence(skillName: string, newCompetense: number): setSkillCompetenceData {
-        const response = this.skillRepository.setSkillCompetence(skillName,
-            newCompetense);
-        let result = {
-            status: statuses.SERVER_ERROR,
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async setDescription(skillName: string, newDescription: string) {
+        try {
+            const response = await this.skillRepository.setSkillDescription(skillName,
+                newDescription);
+            return response;
+        } catch (e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+            }
+        }
     }
 
-    setStartDate(skillName: string, newStartDate: Date): setSkillStartDateData {
-        const response = this.skillRepository.setSkillStartDate(skillName,
-            newStartDate);
-        let result = {
-            status: statuses.SERVER_ERROR,
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async setCompetence(skillName: string, newCompetense: number) {
+        try {
+            const response = await this.skillRepository.setSkillCompetence(skillName,
+                newCompetense);
+            return response;
+        } catch (e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+            }
+        }
     }
 
-    setEndDate(skillName: string, newEndDate: Date): setSkillEndDateData {
-        const response = this.skillRepository.setSkillEndDate(skillName,
-            newEndDate);
-        let result = {
-            status: statuses.SERVER_ERROR,
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async setStartDate(skillName: string, newStartDate: Date) {
+        try {
+            const response = await this.skillRepository.setSkillStartDate(skillName,
+                newStartDate);
+            return response;
+        } catch (e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+            }
+        }
     }
 
-    setLink(skillName: string, newLink: string): setSkillLinkData {
-        const response = this.skillRepository.setSkillLink(skillName,
-            newLink);
-        let result = {
-            status: statuses.SERVER_ERROR,
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async setEndDate(skillName: string, newEndDate: Date) {
+        try {
+            const response = await this.skillRepository.setSkillEndDate(skillName,
+                newEndDate);
+            return response;
+        } catch (e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+            }
+        }
     }
 
-    setImage(skillName: string, newImage: File): setSkillImageData {
-        const response = this.skillRepository.setSkillImage(skillName,
-            newImage);
-        let result = {
-            status: statuses.SERVER_ERROR,
-            imagePath: ""
-        }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
+    async setLink(skillName: string, newLink: string) {
+        try {
+            const response = await this.skillRepository.setSkillLink(skillName,
+                newLink);
+            return response;
+        } catch (e) {
             console.error(e);
-        });
-        return result;
+            return {
+                status: statuses.SERVER_ERROR,
+            }
+        }
+    }
+
+    async setImage(skillName: string, newImage: File) {
+        try {
+            const response = this.skillRepository.setSkillImage(skillName,
+                newImage);
+            return response;
+        } catch (e) {
+            console.error(e);
+            return {
+                status: statuses.SERVER_ERROR,
+                imagePath: ""
+            }
+
+        }
     }
 }

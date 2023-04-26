@@ -24,17 +24,15 @@
     "typescript": "^5.0.4"
   },
   "scripts": {
-    "start": "npm run compile && node ./dist/index.js",
-    "build": "npx tsc -p tsconfig.build.json",
-    "compile": "npx tsc",
-    "test": "jest"
+    "start": "npm run compile && node ./distConsole/index.js",
+    "compile": "npx tsc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kalashkovpaul/bmstu-sd.git"
   },
   "author": "Kalashkov Paul",
-  "type": "commonjs",
+  "type": "module",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kalashkovpaul/bmstu-sd/issues"

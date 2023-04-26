@@ -1,6 +1,10 @@
-import { hero, saveSkillData, } from "@/types";
+import { getSkillProps, hero, saveSkillData, } from "@/types";
 
 export default interface IEditor {
+    getSkillNames(): void;
+
+    getSkill(props: getSkillProps): void;
+
     saveSkill(skillData: saveSkillData): void;
 
     createSkill(skillName: string): void;

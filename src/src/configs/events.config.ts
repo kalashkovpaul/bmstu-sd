@@ -11,4 +11,11 @@ export const events = {
     checkRights: "checkRights",
     noRights: "noRights",
     saveHero: "saveHero",
+    getSkillNames: "getSkillNames",
+    gotSkillNames: "gotSkillNames",
+    getSkill: "getSkill",
+    gotSkill: "gotSkill",
+    createSkill: "createSkill",
+    deleteSkill: "deleteSkill",
+    saveSkill: "saveSkill",
 }

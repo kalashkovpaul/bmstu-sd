@@ -9,7 +9,7 @@ export default class SkillValidator implements ISkillValidator {
         if (this.checkSkillName(skill.name) &&
             this.checkDescription(skill.description) &&
             this.checkDateInterval(skill.startDate, skill.endDate) &&
-            this.checkLink(skill.link) &&
+            (!skill.link || this.checkLink(skill.link)) &&
             (!skill.image || typeof skill.image === "string" || this.checkImage(skill.image as File))) {
                 check = true;
             }

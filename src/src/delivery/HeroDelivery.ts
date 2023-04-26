@@ -41,103 +41,90 @@ export default class HeroDelivery {
         };
     }
 
-    setName(name: string): setHeroNameData {
-        const response = this.heroRepository.setHeroName(name);
-        let result = {
-            status: statuses.SERVER_ERROR,
+    async setName(name: string): Promise<setHeroNameData> {
+        try {
+            const response = await this.heroRepository.setHeroName(name);
+            return response;
+        } catch (e) {
+            console.log(e);
+            return {
+                status: statuses.SERVER_ERROR,
+            }
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 
-    setSurname(surname: string): setHeroSurnameData {
-        const response = this.heroRepository.setHeroSurname(surname);
-        let result = {
-            status: statuses.SERVER_ERROR,
+    async setSurname(surname: string): Promise<setHeroSurnameData> {
+        try {
+            const response = await this.heroRepository.setHeroSurname(surname);
+            return response;
+        } catch (e) {
+            console.log(e);
+            return {
+                status: statuses.SERVER_ERROR,
+            }
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 
-    setLastname(lastname: string): setHeroLastnameData {
-        const response = this.heroRepository.setHeroLastname(lastname);
-        let result = {
-            status: statuses.SERVER_ERROR,
+    async setLastname(lastname: string): Promise<setHeroLastnameData> {
+        try {
+            const response = await this.heroRepository.setHeroLastname(lastname);
+            return response;
+        } catch (e) {
+            console.log(e);
+            return {
+                status: statuses.SERVER_ERROR,
+            }
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 
-    setBirthdate(birthdate: Date): setHeroNameData {
-        const response = this.heroRepository.setHeroBirthdate(birthdate);
-        let result = {
-            status: statuses.SERVER_ERROR,
+    async setBirthdate(birthdate: Date): Promise<setHeroNameData> {
+        try {
+            const response = await this.heroRepository.setHeroBirthdate(birthdate);
+            return response;
+        } catch (e) {
+            console.log(e);
+            return {
+                status: statuses.SERVER_ERROR,
+            }
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 
-    setPhone(phone: string): setHeroPhoneData {
-        const response = this.heroRepository.setHeroPhone(phone);
-        let result = {
-            status: statuses.SERVER_ERROR,
+    async setPhone(phone: string): Promise<setHeroPhoneData> {
+        try {
+            const response = await this.heroRepository.setHeroPhone(phone);
+            return response;
+        } catch (e) {
+            console.log(e);
+            return {
+                status: statuses.SERVER_ERROR,
+            }
+
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 
-    setPhoto(photo: File): setHeroPhotoData {
-        const response = this.heroRepository.setHeroPhoto(photo);
-        let result = {
-            status: statuses.SERVER_ERROR,
-            imagePath: ""
+    async setPhoto(photo: File): Promise<setHeroPhotoData> {
+        try {
+            const response = await this.heroRepository.setHeroPhoto(photo);
+            return response;
+        } catch(e) {
+            console.log(e);
+            return {
+                status: statuses.SERVER_ERROR,
+                imagePath: ""
+            }
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 
-    setResume(resume: File): setHeroResumeData {
-        const response = this.heroRepository.setHeroResume(resume);
-        let result = {
-            status: statuses.SERVER_ERROR,
-            filePath: ""
+    async setResume(resume: File): Promise<setHeroResumeData> {
+        try {
+            const response = await this.heroRepository.setHeroResume(resume);
+            return response;
+        } catch (e) {
+            console.log(e);
+            return {
+                status: statuses.SERVER_ERROR,
+                filePath: ""
+            }
         }
-        response.then((response) => {
-            result = response;
-        })
-        .catch((e) => {
-            console.error(e);
-        });
-        return result;
     }
 }

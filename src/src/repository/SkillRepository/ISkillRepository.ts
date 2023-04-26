@@ -1,6 +1,8 @@
-import { createSkillData, deleteSkillData, getSkillData, setSkillCompetenceData, setSkillDescriptionData, setSkillEndDateData, setSkillImageData, setSkillLinkData, setSkillNameData, setSkillStartDateData, } from "@/types";
+import { createSkillData, deleteSkillData, getSkillData, setSkillCompetenceData, setSkillDescriptionData, setSkillEndDateData, setSkillImageData, setSkillLinkData, setSkillNameData, setSkillStartDateData, skillNames, } from "@/types";
 
 export default interface ISkillRepository {
+    getSkillNames(): Promise<skillNames>;
+
     getSkill(skillName: string): Promise<getSkillData>;
 
     createSkill(skillName: string): Promise<createSkillData>;

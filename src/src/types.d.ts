@@ -22,6 +22,15 @@ export type getSkillData = {
     skill: skill;
 }
 
+
+export type getSkillProps = {
+    skillName: string;
+}
+
+export type skillNames =  {
+    names: Array<string>;
+}
+
 export type createSkillData = {
     status: number;
     skillName: string;

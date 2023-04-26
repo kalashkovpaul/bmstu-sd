@@ -7,6 +7,25 @@ import * as fs from "fs";
 
 
 export default new class SkillRepository implements ISkillRepository {
+    async getSkillNames() {
+        let result = {
+            names: [],
+        }
+        try {
+            const response = await db.many({
+                text: 'SELECT name FROM skills',
+            });
+            return {
+                names: response.map((item) => {
+                    return item.name;
+                }),
+            }
+        } catch (e) {
+            console.log(e);
+        }
+        return result;
+    };
+
     async getSkill(skillName: string) {
         const result = {
             status: statuses.SERVER_ERROR,
@@ -39,8 +58,8 @@ export default new class SkillRepository implements ISkillRepository {
             skillName: ""
         }
         try {
-            const response = await db.one({
-                text: `INSERT INTO skills (name, description, competence, startDate, endDate, link, image) VALUES ($1, '', 0, '2000-01-01', '2023-01-01, '', $2)`,
+            const response = await db.none({
+                text: `INSERT INTO skills (name, description, competence, startDate, endDate, link, image) VALUES ($1, '', 0, '2000-01-01', '2023-01-01', '', $2)`,
                 values: [skillName, skillName + '.png'],
             });
             result.status = statuses.SUCCESS;

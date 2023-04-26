@@ -34,5 +34,10 @@ export default class App extends BaseComponent {
         this.bus.on(events.onEvent, this.administrator.onEvent.bind(this.administrator));
         this.bus.on(events.checkRights, this.administrator.checkAction.bind(this.administrator));
         this.bus.on(events.saveHero, this.editor.saveHeroData.bind(this.editor));
+        this.bus.on(events.getSkillNames, this.editor.getSkillNames.bind(this.editor));
+        this.bus.on(events.getSkill, this.editor.getSkill.bind(this.editor));
+        this.bus.on(events.createSkill, this.editor.createSkill.bind(this.editor));
+        this.bus.on(events.deleteSkill, this.editor.deleteSkill.bind(this.editor));
+        this.bus.on(events.saveSkill, this.editor.saveSkill.bind(this.editor));
     }
 }
