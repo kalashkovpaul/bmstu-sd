@@ -4,6 +4,7 @@ import { statuses } from "../../consts";
 import { convertDateToSQL } from "../../utils/utils";
 import * as fs from "fs";
 import { setHeroPhotoData, setHeroResumeData } from "../../types";
+import logger from "../../logger";
 
 export default new class HeroRepository implements IHeroRepository {
     async getHero() {
@@ -26,7 +27,7 @@ export default new class HeroRepository implements IHeroRepository {
             result.status = statuses.SUCCESS;
             result.hero = response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
         }
         return result;
     };
@@ -43,7 +44,7 @@ export default new class HeroRepository implements IHeroRepository {
             result.status = statuses.SUCCESS;
             result.actionChain = response.chain;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
         }
         return result;
     };
@@ -57,6 +58,7 @@ export default new class HeroRepository implements IHeroRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -72,6 +74,7 @@ export default new class HeroRepository implements IHeroRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -87,6 +90,7 @@ export default new class HeroRepository implements IHeroRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -102,6 +106,7 @@ export default new class HeroRepository implements IHeroRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -117,6 +122,7 @@ export default new class HeroRepository implements IHeroRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }

@@ -1,3 +1,4 @@
+import logger from "../logger";
 import { masterChain, statuses } from "../consts";
 import IHeroRepository from "../repository/HeroRepository/IHeroRepository";
 import { getActionChainData, getHeroData, setHeroLastnameData, setHeroNameData, setHeroPhoneData, setHeroPhotoData, setHeroResumeData, setHeroSurnameData } from "@/types";
@@ -33,7 +34,7 @@ export default class HeroDelivery {
             const response = await this.heroRepository.getActionChain();
             return response;
         } catch(e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
                 actionChain: masterChain,
@@ -46,7 +47,7 @@ export default class HeroDelivery {
             const response = await this.heroRepository.setHeroName(name);
             return response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -58,7 +59,7 @@ export default class HeroDelivery {
             const response = await this.heroRepository.setHeroSurname(surname);
             return response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -70,7 +71,7 @@ export default class HeroDelivery {
             const response = await this.heroRepository.setHeroLastname(lastname);
             return response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -82,7 +83,7 @@ export default class HeroDelivery {
             const response = await this.heroRepository.setHeroBirthdate(birthdate);
             return response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -94,7 +95,7 @@ export default class HeroDelivery {
             const response = await this.heroRepository.setHeroPhone(phone);
             return response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -107,7 +108,7 @@ export default class HeroDelivery {
             const response = await this.heroRepository.setHeroPhoto(photo);
             return response;
         } catch(e) {
-            console.log(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
                 imagePath: ""
@@ -120,7 +121,7 @@ export default class HeroDelivery {
             const response = await this.heroRepository.setHeroResume(resume);
             return response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
                 filePath: ""

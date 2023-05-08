@@ -2,3 +2,4 @@ dist
 distConsole
 node_modules
 coverage
+*.log

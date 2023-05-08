@@ -1,3 +1,4 @@
+import logger from "../logger";
 import { statuses } from "../consts";
 import ISkillRepository from "../repository/SkillRepository/ISkillRepository";
 import { getSkillData, setSkillCompetenceData, setSkillDescriptionData, setSkillEndDateData, setSkillImageData, setSkillLinkData, setSkillNameData, setSkillStartDateData, skillNames } from "../types";
@@ -14,7 +15,7 @@ export default class SkillDelivery {
             const response = await this.skillRepository.getSkillNames();
             return response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             return {
                 names: []
             }
@@ -26,7 +27,7 @@ export default class SkillDelivery {
             const response = this.skillRepository.getSkill(skillName);
             return response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
             return {
                 status: statuses.NOT_FOUND,
                 skill: {
@@ -46,7 +47,7 @@ export default class SkillDelivery {
             const response = await this.skillRepository.createSkill(skillName);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
                 skillName: ""
@@ -60,7 +61,7 @@ export default class SkillDelivery {
             const response = await this.skillRepository.deleteSkill(skillName);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -72,7 +73,7 @@ export default class SkillDelivery {
             const response = await this.skillRepository.setSkillName(skillName, newSkillName);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
                 skillName: ""
@@ -86,7 +87,7 @@ export default class SkillDelivery {
                 newDescription);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -99,7 +100,7 @@ export default class SkillDelivery {
                 newCompetense);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -112,7 +113,7 @@ export default class SkillDelivery {
                 newStartDate);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -125,7 +126,7 @@ export default class SkillDelivery {
                 newEndDate);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -138,7 +139,7 @@ export default class SkillDelivery {
                 newLink);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -151,7 +152,7 @@ export default class SkillDelivery {
                 newImage);
             return response;
         } catch (e) {
-            console.error(e);
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
                 imagePath: ""

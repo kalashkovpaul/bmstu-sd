@@ -4,6 +4,7 @@ import { apiConfig } from '../configs/api.config';
 import { events } from '../configs/events.config';
 import { createSkillData, getHeroData, getSkillData, rightsData, saveSkillData, skillNames } from '../types';
 import { statuses } from '../consts';
+import logger from '../logger';
 
 export class API extends BaseComponent {
     private api: FastifyInstance;
@@ -39,19 +40,24 @@ export class API extends BaseComponent {
     }
 
     getUser = async (request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         this.bus.emit(events.getUser);
         const data = await new Promise<getHeroData>((resolve, reject) => {
             this.bus.on(events.gotUser, resolve);
         });
+        logger.info(`${request.method} ${request.url}, return ${data.status}`);
         reply.code(data.status).send(data.hero);
     }
 
     onEvent = async (request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         this.bus.emit(events.onEvent, JSON.parse(request.body));
+        logger.info(`${request.method} ${request.url}, return ${statuses.SUCCESS}`);
         reply.code(statuses.SUCCESS).send({});
     }
 
     checkRights = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         const data = await new Promise<rightsData>((resolve, reject) => {
             this.bus.on(events.noRights, () => {
                 resolve({
@@ -65,51 +71,63 @@ export class API extends BaseComponent {
             });
             this.bus.emit(events.checkRights);
         });
+        logger.info(`${request.method} ${request.url}, return ${statuses.SUCCESS}`);
         reply.code(statuses.SUCCESS).send(data.isAdmin);
     }
 
     saveHero = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         const data = await new Promise<getHeroData>((resolve, reject) => {
             this.bus.on(events.heroSaveResolved, resolve);
             const body = JSON.parse(request.body);
             this.bus.emit(events.saveHero, {...body.hero, birthdate: new Date(body.hero.birthdate)});
         });
+        logger.info(`${request.method} ${request.url}, return ${data}`);
         reply.code(data).send(data);
     }
 
     getSkillNames = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         const data = await new Promise<skillNames>((resolve, reject) => {
             this.bus.on(events.gotSkillNames, resolve);
             this.bus.emit(events.getSkillNames);
         });
+        logger.info(`${request.method} ${request.url}, return ${statuses.SUCCESS}`);
         reply.code(statuses.SUCCESS).send(data);
     }
 
     getSkill = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         const data = await new Promise<getSkillData>((resolve, reject) => {
             this.bus.on(events.gotSkill, resolve);
             this.bus.emit(events.getSkill, JSON.parse(request.body));
         });
+        logger.info(`${request.method} ${request.url}, return ${data.status}`);
         reply.code(data.status).send(data);
     }
 
     createSkill = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         const data = await new Promise<createSkillData>((resolve, reject) => {
             this.bus.on(events.skillCreateResolved, resolve);
             this.bus.emit(events.createSkill, JSON.parse(request.body).skillName);
         });
+        logger.info(`${request.method} ${request.url}, return ${data}`);
         reply.code(data).send(data);
     }
 
     deleteSkill = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         const data = await new Promise<createSkillData>((resolve, reject) => {
             this.bus.on(events.skillDeleteResolved, resolve);
             this.bus.emit(events.deleteSkill, JSON.parse(request.body).skillName);
         });
+        logger.info(`${request.method} ${request.url}, return ${data}`);
         reply.code(data).send(data);
     }
 
     saveSkill = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
         const data = await new Promise<saveSkillData>((resolve, reject) => {
             this.bus.on(events.skillSaveResolved, resolve);
             const body = JSON.parse(request.body);
@@ -122,6 +140,7 @@ export class API extends BaseComponent {
                 }
             });
         });
+        logger.info(`${request.method} ${request.url}, return ${data}`);
         reply.code(data).send(data);
     }
 }

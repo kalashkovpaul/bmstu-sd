@@ -4,6 +4,7 @@ import ISkillRepository from "./ISkillRepository";
 import { createSkillData, deleteSkillData, setSkillCompetenceData, setSkillDescriptionData, setSkillEndDateData, setSkillImageData, setSkillLinkData, setSkillNameData, setSkillStartDateData } from "../../types";
 import { convertDateToSQL } from "../../utils/utils";
 import * as fs from "fs";
+import logger from "../../logger";
 
 
 export default new class SkillRepository implements ISkillRepository {
@@ -21,7 +22,7 @@ export default new class SkillRepository implements ISkillRepository {
                 }),
             }
         } catch (e) {
-            console.log(e);
+            logger.error(e);
         }
         return result;
     };
@@ -47,7 +48,7 @@ export default new class SkillRepository implements ISkillRepository {
             result.status = statuses.SUCCESS;
             result.skill = response;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
         }
         return result;
     };
@@ -65,7 +66,7 @@ export default new class SkillRepository implements ISkillRepository {
             result.status = statuses.SUCCESS;
             result.skillName = skillName;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
         }
         return result;
     }
@@ -81,7 +82,7 @@ export default new class SkillRepository implements ISkillRepository {
             });
             result.status = statuses.SUCCESS;
         } catch (e) {
-            console.log(e);
+            logger.error(e);
         }
         return result;
     }
@@ -96,6 +97,7 @@ export default new class SkillRepository implements ISkillRepository {
                 skillName: newSkillName
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
                 skillName: ""
@@ -112,6 +114,7 @@ export default new class SkillRepository implements ISkillRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -127,6 +130,7 @@ export default new class SkillRepository implements ISkillRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -142,6 +146,7 @@ export default new class SkillRepository implements ISkillRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -157,6 +162,7 @@ export default new class SkillRepository implements ISkillRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
@@ -172,6 +178,7 @@ export default new class SkillRepository implements ISkillRepository {
                 status: statuses.SUCCESS,
             }
         }).catch((e) => {
+            logger.error(e);
             return {
                 status: statuses.SERVER_ERROR,
             }
