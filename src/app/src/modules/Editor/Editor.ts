@@ -29,6 +29,9 @@ export default class Editor extends BaseComponent implements IEditor {
         this.bus.on(events.ownerUnlocked, function() {
             that.isOwner = true;
         });
+        this.bus.on(events.noRights, function() {
+            that.isOwner = false;
+        });
     }
 
     getSkillNames() {
@@ -38,10 +41,10 @@ export default class Editor extends BaseComponent implements IEditor {
             });
     }
 
-    getSkill(props: getSkillProps) {
+    getSkill(id: number, props: getSkillProps) {
         this.skillDelivery.getSkill(props.skillName)
             .then(result => {
-                this.bus.emit(events.gotSkill, result);
+                this.bus.emit(events.gotSkill, id, result);
             });
     }
 

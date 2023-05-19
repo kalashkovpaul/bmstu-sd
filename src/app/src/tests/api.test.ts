@@ -67,7 +67,7 @@ describe("API tests", () => {
                 mode: 'no-cors',
                 body: JSON.stringify({
                     hero: {
-                        name: "Pavel",
+                        name: "Paul",
                         surname: "Kalashkov",
                         lastname: "JS",
                         birthdate: new Date(),

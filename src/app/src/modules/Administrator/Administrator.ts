@@ -20,12 +20,19 @@ export default class Administrator extends BaseComponent implements IAdministrat
     }
 
     onEvent = (event: eventData) => {
-        this.currentActionChain += event.actionCode;
+        if (event.actionCode === '9') {
+            this.currentActionChain = "";
+            console.log("CLEAR");
+        } else {
+            this.currentActionChain += event.actionCode;
+            console.log("CODE: ", this.currentActionChain);
+        }
     }
 
     checkAction() {
         if (this.currentActionChain === this.actionChain) {
             this.enableOwnership();
+            console.log("ENABLE");
         } else {
             this.bus.emit(events.noRights);
         }

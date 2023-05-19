@@ -4,6 +4,7 @@
   "description": "BMSTU Software Design course, VI term, 2023",
   "main": "index.js",
   "dependencies": {
+    "@fastify/cors": "^8.2.1",
     "babel-jest": "^29.5.0",
     "fastify": "^4.15.0",
     "fs": "0.0.1-security",

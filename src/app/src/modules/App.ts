@@ -25,7 +25,8 @@ export default class App extends BaseComponent {
         this.registerComponents();
     }
 
-    start() {
+    async start() {
+        await this.api.init();
         this.api.startServer();
     }
 

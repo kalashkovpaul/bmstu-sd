@@ -1,4 +1,5 @@
 import Fastify, {FastifyInstance} from 'fastify';
+import cors from '@fastify/cors'
 import BaseComponent from './BaseComponent';
 import { apiConfig } from '../configs/api.config';
 import { events } from '../configs/events.config';
@@ -23,6 +24,12 @@ export class API extends BaseComponent {
         this.api.post(apiConfig.saveSkill, this.saveSkill);
     }
 
+    init = async () => {
+        await this.api.register(cors, {
+            origin: "http://localhost:8005"
+        });
+    }
+
     startServer = async () => {
         this.api.addContentTypeParser('application/json',
             { parseAs: "string"}, // buffer?
@@ -45,6 +52,7 @@ export class API extends BaseComponent {
         const data = await new Promise<getHeroData>((resolve, reject) => {
             this.bus.on(events.gotUser, resolve);
         });
+        logger.info(data);
         logger.info(`${request.method} ${request.url}, return ${data.status}`);
         reply.code(data.status).send(data.hero);
     }
@@ -98,9 +106,14 @@ export class API extends BaseComponent {
 
     getSkill = async(request: any, reply: any) => {
         logger.info(`${request.method} ${request.url}`);
+        const id = Math.floor(Math.random() * 100000);
         const data = await new Promise<getSkillData>((resolve, reject) => {
-            this.bus.on(events.gotSkill, resolve);
-            this.bus.emit(events.getSkill, JSON.parse(request.body));
+            this.bus.on(events.gotSkill, (i, data) => {
+                if (i === id) {
+                    resolve(data);
+                }
+            });
+            this.bus.emit(events.getSkill, id, JSON.parse(request.body));
         });
         logger.info(`${request.method} ${request.url}, return ${data.status}`);
         reply.code(data.status).send(data);
