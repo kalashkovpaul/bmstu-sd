@@ -31,6 +31,25 @@ export const skillValues = {
     }
 }
 
+export const workValues = {
+    name: {
+        min: 1,
+        max: 40
+    },
+    description: {
+        min: 1,
+        max: 100
+    },
+    href: {
+        min: 0,
+        max: 500,
+    },
+    image: {
+        min: 1,
+        max: 50,
+    }
+}
+
 export const heroValues = {
     name: {
         min: 2,

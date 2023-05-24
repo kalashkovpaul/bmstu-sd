@@ -48,6 +48,8 @@ export const homePageMeta: HomepageMeta = {
   description: "Example site built with Tim Baker's react resume template",
 };
 
+export const images = [porfolioImage1, porfolioImage2, porfolioImage3, porfolioImage4, porfolioImage5, porfolioImage6, porfolioImage7, porfolioImage8, porfolioImage9, porfolioImage10, porfolioImage11]
+
 /**
  * Section definition
  */
@@ -193,67 +195,67 @@ export const portfolioItems: PortfolioItem[] = [
   {
     title: 'Project title 1',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage1,
   },
   {
     title: 'Project title 2',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage2,
   },
   {
     title: 'Project title 3',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage3,
   },
   {
     title: 'Project title 4',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage4,
   },
   {
     title: 'Project title 5',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage5,
   },
   {
     title: 'Project title 6',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage6,
   },
   {
     title: 'Project title 7',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage7,
   },
   {
     title: 'Project title 8',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage8,
   },
   {
     title: 'Project title 9',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage9,
   },
   {
     title: 'Project title 10',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage10,
   },
   {
     title: 'Project title 11',
     description: 'Give a short description of your project here.',
-    url: 'https://timbaker.me',
+    href: 'https://timbaker.me',
     image: porfolioImage11,
   },
 ];

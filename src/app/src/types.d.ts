@@ -1,3 +1,5 @@
+import WorkDelivery from "./delivery/WorkDelivery";
+
 export type callback = (...args: any[]) => void;
 
 export type event = string;
@@ -21,7 +23,6 @@ export type getSkillData = {
     status: number;
     skill: skill;
 }
-
 
 export type getSkillProps = {
     skillName: string;
@@ -126,4 +127,58 @@ export type eventData = {
 
 export type rightsData = {
     isAdmin: boolean;
+}
+
+export type getWorkData = {
+    status: number;
+    work: workData;
+}
+
+export type workData = {
+    title: string;
+    description: string;
+    href: string;
+    image: string;
+}
+
+export type createWorkData = {
+    status: number;
+    workName: string;
+}
+
+export type deleteWorkData = {
+    status: number;
+}
+
+export type setWorkNameData = {
+    status: number;
+    workName: string;
+}
+
+export type setWorkDescriptionData = {
+    status: number;
+}
+
+export type setWorkHrefData = {
+    status: number;
+}
+
+export type setWorkImageData = {
+    status: number;
+    image: string;
+}
+
+export type getWorkProps = {
+    workName: string;
+}
+
+export type DeliveryLevel = {
+    skillDelivery: SkillDelivery;
+    heroDelivery: HeroDelivery;
+    workDelivery: WorkDelivery;
+}
+
+export type saveWorkData = {
+    newWorkName: string;
+    work: workData;
 }

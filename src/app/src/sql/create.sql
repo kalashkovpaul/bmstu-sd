@@ -21,3 +21,11 @@ CREATE TABLE IF NOT EXISTS skills
     link VARCHAR(500) DEFAULT '',
     image VARCHAR(50) DEFAULT 'avatar.png'
 );
+
+CREATE TABLE IF NOT EXISTS works
+(
+    name VARCHAR(40) DEFAULT 'New Work' PRIMARY KEY,
+    description VARCHAR(100) DEFAULT '',
+    href VARCHAR(500) DEFAULT '',
+    image VARCHAR(50) DEFAULT ''
+);

@@ -6,12 +6,16 @@ import HeroDelivery from "@/delivery/HeroDelivery";
 import IHeroRepository from "@/repository/HeroRepository/IHeroRepository";
 import { events } from "@/configs/events.config";
 import { statuses } from "@/consts";
+import WorkDelivery from "@/delivery/WorkDelivery";
+import IWorkRespository from "@/repository/WorkRepository/IWorkRepository";
 
 jest.deepUnmock("@/modules/Editor/Editor");
 const skillRepository = {};
 const heroRepository = {};
+const workRepository = {}
 const skillDelivery = new SkillDelivery(skillRepository as ISkillRepository);
 const heroDelivery = new HeroDelivery(heroRepository as IHeroRepository);
+const workDelivery = new WorkDelivery(workRepository as IWorkRespository)
 
 const on = jest.fn();
 const off = jest.fn();
@@ -65,7 +69,7 @@ jest.mock("@/modules/Bus/EventBus", () => {
 
 describe("Editor test", () => {
     it("Editor constructor test", () => {
-        const editor = new Editor(skillDelivery, heroDelivery);
+        const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
         expect(eventBus.on).toBeCalledTimes(1);
     });
 
@@ -73,20 +77,20 @@ describe("Editor test", () => {
         it("not owner", () => {
             const f = jest.fn();
             eventBus.on(events.skillSaveResolved, f);
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             editor.saveSkill(testSkill);
             expect(eventBus.emit).toBeCalledWith(events.skillSaveResolved, statuses.FORBIDDEN);
         });
 
         it("owner, invalid args", () => {
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             (<any>editor).isOwner = true;
             editor.saveSkill(invalidSkill);
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillSaveResolved, statuses.INVALID_ARGS);
         });
 
         it("owner, all valid", () => {
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             jest.spyOn(skillDelivery, "setDescription").mockReturnValue(new Promise(resolve => {
                 resolve({status: statuses.SUCCESS})
             }));
@@ -129,7 +133,7 @@ describe("Editor test", () => {
             jest.spyOn(skillDelivery, "setDescription").mockReturnValue(new Promise(resolve => {
                 resolve({status: statuses.SERVER_ERROR})
             }));
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             (<any>editor).isOwner = true;
             editor.saveSkill(testSkill);
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillSaveResolved, statuses.SERVER_ERROR);
@@ -140,20 +144,20 @@ describe("Editor test", () => {
         it("not owner", () => {
             const f = jest.fn();
             eventBus.on(events.skillCreateResolved, f);
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             editor.createSkill("test");
             expect(eventBus.emit).toBeCalledWith(events.skillSaveResolved, statuses.FORBIDDEN);
         });
 
         it("owner, invalid skillName", () => {
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             (<any>editor).isOwner = true;
             editor.createSkill("");
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillCreateResolved, statuses.INVALID_ARGS);
         });
 
         it("owner, all valid", () => {
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             jest.spyOn(skillDelivery, "createSkill").mockReturnValue(new Promise(resolve => {
                 resolve({status: statuses.SUCCESS, skillName: ""})
             }));
@@ -163,7 +167,7 @@ describe("Editor test", () => {
         });
 
         it("owner, skillDelivery error", () => {
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             jest.spyOn(skillDelivery, "createSkill").mockReturnValue(new Promise(resolve => {
                 resolve({status: statuses.SERVER_ERROR, skillName: ""})
             }));
@@ -177,20 +181,20 @@ describe("Editor test", () => {
         it("not owner", () => {
             const f = jest.fn();
             eventBus.on(events.skillCreateResolved, f);
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             editor.deleteSkill("test");
             expect(eventBus.emit).toBeCalledWith(events.skillSaveResolved, statuses.FORBIDDEN);
         });
 
         it("owner, invalid skillName", () => {
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             (<any>editor).isOwner = true;
             editor.deleteSkill("");
             expect(eventBus.emit).toHaveBeenLastCalledWith(events.skillDeleteResolved, statuses.INVALID_ARGS);
         });
 
         it("owner, all valid", () => {
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             jest.spyOn(skillDelivery, "deleteSkill").mockReturnValue(new Promise(resolve => {
                 resolve({status: statuses.SUCCESS})
             }));
@@ -200,7 +204,7 @@ describe("Editor test", () => {
         });
 
         it("owner, skillDelivery error", () => {
-            const editor = new Editor(skillDelivery, heroDelivery);
+            const editor = new Editor({skillDelivery, heroDelivery, workDelivery});
             jest.spyOn(skillDelivery, "deleteSkill").mockReturnValue(new Promise(resolve => {
                 resolve({status: statuses.SERVER_ERROR})
             }));

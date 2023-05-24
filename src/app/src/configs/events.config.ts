@@ -3,6 +3,9 @@ export const events = {
     skillCreateResolved: "skillCreateResolved",
     skillDeleteResolved: "skillDeleteResolved",
     heroSaveResolved: "heroSaveResolved",
+    workSaveResolved: "",
+    workCreateResolved: "",
+    workDeleteResolved: "",
 
     ownerUnlocked: "ownerUnlocked",
     getUser: "getUser",
@@ -18,4 +21,11 @@ export const events = {
     createSkill: "createSkill",
     deleteSkill: "deleteSkill",
     saveSkill: "saveSkill",
+    getWorkNames: "getWorkNames",
+    gotWorkNames: "gotWorkNames",
+    getWork: "getWork",
+    gotWork: "gotWork",
+    createWork: "createWork",
+    deleteWork: "deleteWork",
+    saveWork: "saveWork",
 }

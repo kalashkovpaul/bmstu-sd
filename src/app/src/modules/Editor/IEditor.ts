@@ -1,4 +1,4 @@
-import { getSkillProps, hero, saveSkillData, } from "@/types";
+import { getSkillProps, getWorkData, getWorkProps, hero, saveSkillData } from "@/types";
 
 export default interface IEditor {
     getSkillNames(): void;
@@ -12,4 +12,14 @@ export default interface IEditor {
     deleteSkill(skillName: string): void;
 
     saveHeroData(hero: hero): void;
+
+    getWorkNames(): void;
+
+    getWork(id: number, props: getWorkProps): void;
+
+    saveWork(data: getWorkData): void;
+
+    createWork(workName: string): void;
+
+    deleteWork(workName: string): void;
 }

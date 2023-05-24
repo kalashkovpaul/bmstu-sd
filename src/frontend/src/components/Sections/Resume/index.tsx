@@ -38,7 +38,6 @@ const Resume: FC = memo(() => {
             title: skill.name,
             location: skill.description.substr(0, skill.description.indexOf("|"))
           };
-          console.log(newSkill);
           if (skill.link === "education") {
             setEducationSkills([...educationSkills, newSkill]);
           } else if (skill.link === "experience") {

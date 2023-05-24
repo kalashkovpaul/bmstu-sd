@@ -10,4 +10,9 @@ export const apiConfig = {
     createSkill: `/api/skill/create`,
     deleteSkill: `/api/skill/delete`,
     saveSkill: `/api/skill/save`,
+    getWorks: `/api/works`,
+    getWork: `/api/work`,
+    createWork: `/api/work/create`,
+    deleteWork: `/api/work/delete`,
+    saveWork: `/api/work/save`,
 }

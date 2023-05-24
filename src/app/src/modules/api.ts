@@ -3,7 +3,7 @@ import cors from '@fastify/cors'
 import BaseComponent from './BaseComponent';
 import { apiConfig } from '../configs/api.config';
 import { events } from '../configs/events.config';
-import { createSkillData, getHeroData, getSkillData, rightsData, saveSkillData, skillNames } from '../types';
+import { createSkillData, createWorkData, deleteWorkData, getHeroData, getSkillData, getWorkData, rightsData, saveSkillData, saveWorkData, skillNames } from '../types';
 import { statuses } from '../consts';
 import logger from '../logger';
 
@@ -22,6 +22,11 @@ export class API extends BaseComponent {
         this.api.post(apiConfig.createSkill, this.createSkill);
         this.api.post(apiConfig.deleteSkill, this.deleteSkill);
         this.api.post(apiConfig.saveSkill, this.saveSkill);
+        this.api.get(apiConfig.getWorks, this.getWorkNames);
+        this.api.put(apiConfig.getWork, this.getWork);
+        this.api.post(apiConfig.createWork, this.createWork);
+        this.api.post(apiConfig.deleteWork, this.deleteWork);
+        this.api.post(apiConfig.saveWork, this.saveWork);
     }
 
     init = async () => {
@@ -150,6 +155,67 @@ export class API extends BaseComponent {
                     ...body.skill,
                     startDate: new Date(body.skill.startdate),
                     endDate: new Date(body.skill.enddate)
+                }
+            });
+        });
+        logger.info(`${request.method} ${request.url}, return ${data}`);
+        reply.code(data).send(data);
+    }
+
+    getWorkNames = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
+        const data = await new Promise<string[]>((resolve, reject) => {
+            this.bus.on(events.gotWorkNames, resolve);
+            this.bus.emit(events.getWorkNames);
+        });
+        logger.info(`${request.method} ${request.url}, return ${statuses.SUCCESS}`);
+        reply.code(statuses.SUCCESS).send(data);
+    }
+
+    getWork = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
+        const id = Math.floor(Math.random() * 100000);
+        const data = await new Promise<getWorkData>((resolve, reject) => {
+            this.bus.on(events.gotWork, (i, data) => {
+                if (i === id) {
+                    resolve(data);
+                }
+            });
+            this.bus.emit(events.getWork, id, JSON.parse(request.body));
+        });
+        logger.info(`${request.method} ${request.url}, return ${data.status}`);
+        reply.code(data.status).send(data);
+    }
+
+    createWork = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
+        const data = await new Promise<createWorkData>((resolve, reject) => {
+            this.bus.on(events.workCreateResolved, resolve);
+            this.bus.emit(events.createWork, JSON.parse(request.body).workName);
+        });
+        logger.info(`${request.method} ${request.url}, return ${data}`);
+        reply.code(data).send(data);
+    }
+
+    deleteWork = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
+        const data = await new Promise<createWorkData>((resolve, reject) => {
+            this.bus.on(events.workDeleteResolved, resolve);
+            this.bus.emit(events.deleteWork, JSON.parse(request.body).workName);
+        });
+        logger.info(`${request.method} ${request.url}, return ${data}`);
+        reply.code(data).send(data);
+    }
+
+    saveWork = async(request: any, reply: any) => {
+        logger.info(`${request.method} ${request.url}`);
+        const data = await new Promise<saveWorkData>((resolve, reject) => {
+            this.bus.on(events.workSaveResolved, resolve);
+            const body = JSON.parse(request.body);
+            this.bus.emit(events.saveWork, {
+                newWorkName: body.work.name,
+                work: {
+                    ...body.work
                 }
             });
         });

@@ -7,10 +7,13 @@ import { API, api } from "./api";
 import Editor from "./Editor/Editor";
 import SkillDelivery from "../delivery/SkillDelivery";
 import SkillRepository from "../repository/SkillRepository/SkillRepository";
+import WorkDelivery from "../delivery/WorkDelivery";
+import WorkRepository from "../repository/WorkRepository/WorkRepository";
 
 export default class App extends BaseComponent {
     private heroDelivery: HeroDelivery;
     private skillDelivery: SkillDelivery;
+    private workDelivery: WorkDelivery;
     private administrator: Administrator;
     private editor: Editor;
     private api: API;
@@ -19,8 +22,13 @@ export default class App extends BaseComponent {
         super();
         this.heroDelivery = new HeroDelivery(HeroRepository);
         this.skillDelivery = new SkillDelivery(SkillRepository)
+        this.workDelivery = new WorkDelivery(WorkRepository);
         this.administrator = new Administrator(this.heroDelivery);
-        this.editor = new Editor(this.skillDelivery, this.heroDelivery);
+        this.editor = new Editor({
+            skillDelivery: this.skillDelivery,
+            heroDelivery: this.heroDelivery,
+            workDelivery: this.workDelivery
+        });
         this.api = api;
         this.registerComponents();
     }
@@ -40,5 +48,11 @@ export default class App extends BaseComponent {
         this.bus.on(events.createSkill, this.editor.createSkill.bind(this.editor));
         this.bus.on(events.deleteSkill, this.editor.deleteSkill.bind(this.editor));
         this.bus.on(events.saveSkill, this.editor.saveSkill.bind(this.editor));
+        this.bus.on(events.getWorkNames, this.editor.getWorkNames.bind(this.editor));
+        this.bus.on(events.getWork, this.editor.getWork.bind(this.editor));
+        this.bus.on(events.createWork, this.editor.createWork.bind(this.editor));
+        this.bus.on(events.deleteWork, this.editor.deleteWork.bind(this.editor));
+        this.bus.on(events.saveWork, this.editor.saveWork.bind(this.editor));
+
     }
 }
